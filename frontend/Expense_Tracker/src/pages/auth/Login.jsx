@@ -1,14 +1,27 @@
 import React, { use, useState } from 'react'
 import AuthLayout from '../../components/layout/AuthLayout'
-import card_2 from '../../assets/images/image.png'
-import { useNavigate } from 'react-router-dom';
+//import card_2 from '../../assets/images/image.png'
+import { Link, useNavigate } from 'react-router-dom';
 import Input from '../../components/input/Input';
+import { validateEmail } from '../../utils/helper';
 const Login = () => {
     const[email,SetEmail]=useState();
     const[password,SetPassword]=useState();
     const[error,seterror]=useState(false);
     const  navigate=useNavigate();
-    const handlelogin=async(e)=>{}
+    const handlelogin=async(e)=>{
+       e.preventDefault();
+       if(!validateEmail(email)){
+        seterror("please enter a valid email address")
+        return;
+       }
+       if(!password){
+        seterror("please enter the password")
+        return
+       } 
+       seterror("")
+       //login api call
+    }
   return (
     <AuthLayout>
     <div className='g:w-[70%] h-3/4 md:h-full flex flex-col justify-center'>
@@ -27,7 +40,13 @@ const Login = () => {
             label='password'
             placeholder="Min 8 characters"
             type="password"/>
+            {error && <p className='text-red-500 text-xs pb-2.5'>{error}</p>}
+            <button type="submit" className='btn-primary'>LOGIN</button>
+            <p className='text-[13px] text-slate-800 mt-3'>don't have an account?{" "}
+                <Link className='font-meduim text-primary underline' to="/signup">signup</Link>
+            </p>
         </form>
+
     </div>
     </AuthLayout>
   )

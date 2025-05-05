@@ -23,6 +23,8 @@ app.use(cors({
 
 // Routes
 app.use("/api/v1/auth", authRoutes);
+//serveupload folder
+app.use('/uploads',express.static(path.join(__dirname,"uploads")))
 
 // Start the server
 const PORT = process.env.PORT || 5000;

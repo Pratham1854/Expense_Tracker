@@ -4,7 +4,7 @@ const cors = require("cors");
 const path = require("path");
 const connectDB = require("./config/db");
 const authRoutes = require("./routes/AuthRoutes");
-
+const Incomeroutes = require("./routes/Incomeroutes");
 const app = express();
 
 // Connect to MongoDB
@@ -23,6 +23,7 @@ app.use(cors({
 
 // Routes
 app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/auth", Incomeroutes);
 //serveupload folder
 app.use('/uploads',express.static(path.join(__dirname,"uploads")))
 

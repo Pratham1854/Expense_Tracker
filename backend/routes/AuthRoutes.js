@@ -1,5 +1,5 @@
 const express = require("express");
-const Protect=require('../middleware/authmiddleware')
+const {protect}=require('../middleware/authmiddleware')
 const {
     registeruser,
     loginuser,
@@ -12,7 +12,7 @@ const router = express.Router();
 
 router.post('/register', registeruser);
 router.post('/login', loginuser);
-router.get('/getuser', Protect, getuserinfo);
+router.get('/getuser', protect, getuserinfo);
 router.post("/upload-image", upload.single("image"), (req, res) => {
     if (!req.file) {
         return res.status(400).json({ message: "No file uploaded" });

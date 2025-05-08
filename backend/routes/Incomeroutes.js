@@ -1,14 +1,15 @@
 const express=require("express")
-const{
-    addincome,
-    getallincome,
-    deleteincome,
-    downloadincomeexcel
-}=require("../controllers/incomeController");
+const {
+    addIncome,
+    getAllIncome,
+    deleteIncome,
+    downloadIncomeExcel
+} = require("../controllers/incomeController");
+
 const {protect}=require("../middleware/authmiddleware");
 const router=express.Router();
-router.post("/add",protect,addincome);
-router.get("/get",protect,getallincome);
-router.get("/dowloadexcel",protect,downloadincomeexcel);
-router.delete("/:id",protect,deleteincome);
+router.post("/add", protect, addIncome);
+router.get("/get", protect, getAllIncome);
+router.get("/downloadexcel", protect, downloadIncomeExcel); // you may also want to fix spelling here
+router.delete("/:id", protect, deleteIncome);
 module.exports=router;

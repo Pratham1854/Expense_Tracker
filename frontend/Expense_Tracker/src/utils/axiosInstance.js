@@ -1,1 +1,1 @@
-import axios f
+import axios from "axios"

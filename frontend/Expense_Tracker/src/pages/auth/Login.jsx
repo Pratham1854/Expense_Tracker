@@ -1,55 +1,87 @@
-import React, { use, useState } from 'react'
-import AuthLayout from '../../components/layout/AuthLayout'
-//import card_2 from '../../assets/images/image.png'
+import React, { useState } from 'react';
+import AuthLayout from '../../components/layout/AuthLayout';
 import { Link, useNavigate } from 'react-router-dom';
 import Input from '../../components/input/Input';
-import { validateEmail } from '../../utils/helper';
+import axiosInstance from '../../utils/axiosInstance';
+import { API_PATHS } from '../../utils/apiPath';
+import { validateEmail } from '../../utils/helper'; // Make sure this is correct
+
 const Login = () => {
-    const[email,SetEmail]=useState();
-    const[password,SetPassword]=useState();
-    const[error,seterror]=useState(false);
-    const  navigate=useNavigate();
-    const handlelogin=async(e)=>{
-       e.preventDefault();
-       if(!validateEmail(email)){
-        seterror("please enter a valid email address")
-        return;
-       }
-       if(!password){
-        seterror("please enter the password")
-        return
-       } 
-       seterror("")
-       //login api call
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    if (!validateEmail(email)) {
+      setError("Please enter a valid email address");
+      return;
     }
+
+    if (!password) {
+      setError("Please enter the password");
+      return;
+    }
+
+    setError("");
+
+    try {
+      const response = await axiosInstance.post(API_PATHS.AUTH.LOGIN, {
+        email,
+        password,
+      });
+
+      const { token, user } = response.data;
+
+      if (token) {
+        localStorage.setItem("token", token);
+        navigate("/dashboard");
+      }
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        setError(error.response.data.message);
+      } else {
+        setError("Something went wrong");
+      }
+    }
+  };
+
   return (
     <AuthLayout>
-    <div className='g:w-[70%] h-3/4 md:h-full flex flex-col justify-center'>
-        <h3 className="text-xl font-semibody text-black">welcome back</h3>
-        <p className='text-xs text-slate-700 mt-[5px] mb-6'> Please enter your details to login in</p>
-        <form onSubmit={handlelogin}>
-            <Input
+      <div className="w-full max-w-md mx-auto h-3/4 md:h-full flex flex-col justify-center">
+        <h3 className="text-xl font-semibold text-black">Welcome back</h3>
+        <p className="text-xs text-slate-700 mt-1 mb-6">Please enter your details to log in</p>
+
+        <form onSubmit={handleLogin}>
+          <Input
             value={email}
-            onchange={({target})=>SetEmail(target.value)}
-            label='email address'
+            onChange={({ target }) => setEmail(target.value)}
+            label="Email Address"
             placeholder="john@example.com"
-            type="text"/>
-               <Input
+            type="text"
+          />
+          <Input
             value={password}
-            onchange={({target})=>SetPassword(target.value)}
-            label='password'
+            onChange={({ target }) => setPassword(target.value)}
+            label="Password"
             placeholder="Min 8 characters"
-            type="password"/>
-            {error && <p className='text-red-500 text-xs pb-2.5'>{error}</p>}
-            <button type="submit" className='btn-primary'>LOGIN</button>
-            <p className='text-[13px] text-slate-800 mt-3'>don't have an account?{" "}
-                <Link className='font-meduim text-primary underline' to="/signup">signup</Link>
-            </p>
+            type="password"
+          />
+
+          {error && <p className="text-red-500 text-xs pb-2.5">{error}</p>}
+
+          <button type="submit" className="btn-primary">LOGIN</button>
+
+          <p className="text-sm text-slate-800 mt-3">
+            Don't have an account?{" "}
+            <Link className="font-medium text-primary underline" to="/signup">Sign up</Link>
+          </p>
         </form>
-
-    </div>
+      </div>
     </AuthLayout>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

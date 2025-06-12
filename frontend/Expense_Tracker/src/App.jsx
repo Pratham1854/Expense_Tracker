@@ -7,8 +7,10 @@ import SignUp from './pages/auth/SignUp'
 import Home from './pages/dashboard/Home'
 import Income from './pages/dashboard/Income'
 import Expense from './pages/dashboard/Expense'
+import Userprovider from './context/UserContext'
 const App = () => {
   return (
+    <Userprovider>
     <div>
       <Router>
         <Routes>
@@ -21,6 +23,7 @@ const App = () => {
         </Routes>
       </Router>
     </div>
+    </Userprovider>
   )
 }
 

@@ -4,7 +4,7 @@ import DashboardLayout from '../../components/layout/DashboardLayout'
 const Home = () => {
   return (
     <DashboardLayout Acitvemenu="Dashboard">
-      <div className='my-5 mx-auto'></div>
+      <div className='my-5 mx-auto'>Home</div>
 
     </DashboardLayout>
   )

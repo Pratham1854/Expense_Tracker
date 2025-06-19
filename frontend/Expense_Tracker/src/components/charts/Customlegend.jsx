@@ -1,8 +1,7 @@
 import React from 'react';
 
 const Customlegend = ({ payload }) => {
-  console.log("Custom Legend Payload:", payload);
-
+  
   if (!payload || !payload.length) return null;
 
   return (

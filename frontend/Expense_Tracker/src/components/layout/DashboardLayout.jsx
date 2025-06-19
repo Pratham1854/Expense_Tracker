@@ -1,27 +1,24 @@
-import React from 'react'
-import { useContext } from 'react'
-import { UserContext } from '../../context/UserContext'
-import Navbar from './Navbar'
-import Sidemenu from './Sidemenu'
+import React, { useContext } from 'react';
+import { UserContext } from '../../context/UserContext';
+import Navbar from './Navbar';
+import Sidemenu from './Sidemenu';
 
-const DashboardLayout = ({children,Acitvemenu}) => {
-    const user=useContext(UserContext)
+const DashboardLayout = ({ children, Activemenu }) => {
+  const user = useContext(UserContext);
+
   return (
-    <div className=''>
-        <Navbar Acitvemenu={Acitvemenu}/>
-        {user &&
-        (
-            <div className='flex'>
-            <div className='max-[1080px]:hidden'>
-                <Sidemenu Acitvemenu={Acitvemenu}/>
-            </div>
-            <div className='grow mx-5'>{children}</div>
-            </div>
-        )}
-
-
+    <div>
+      <Navbar Activemenu={Activemenu} />
+      {user && (
+        <div className='flex'>
+          <div className='max-[1080px]:hidden'>
+            <Sidemenu Activemenu={Activemenu} />
+          </div>
+          <div className='grow mx-5'>{children}</div>
+        </div>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default DashboardLayout
+export default DashboardLayout;

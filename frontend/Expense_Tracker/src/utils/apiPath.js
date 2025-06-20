@@ -11,14 +11,14 @@ export const API_PATHS={
     INCOME:{
         ADD_INCOME:"/api/v1/income/add",
         GET_ALL_INCOME:"/api/v1/income/get",
-        DELETE_INCOME:(incomeid)=>`/api/v1/income/login/${incomeid}`,
+        DELETE_INCOME: (incomeid) => `/api/v1/income/${incomeid}`,
         DOWNLOAD_INCOME:"/api/v1/income/downloadexcel",
     },
     EXPENSE:{
-        ADD_INCOME:"/api/v1/expense/add",
-        GET_ALL_INCOME:"/api/v1/expense/get",
-        DELETE_INCOME:(expenseid)=>`/api/v1/expense/${expenseid}`,
-        DOWNLOAD_INCOME:"/api/v1/expense/downloadexcel",
+        ADD_EXPENSE:"/api/v1/expense/add",
+        GET_ALL_EXPENSE:"/api/v1/expense/get",
+        DELETE_EXPENSE:(expenseid)=>`/api/v1/expense/${expenseid}`,
+        DOWNLOAD_EXPENSE:"/api/v1/expense/downloadexcel",
     },
     IMAGE:{
         UPLOAD_IMAGE:"/api/v1/auth/upload-image",

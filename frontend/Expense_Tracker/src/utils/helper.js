@@ -59,3 +59,26 @@ export const prepareincomebarchart = (data = []) => {
 
   return chartData;
 };
+
+export const prepareExpenselineChartdata = (data = []) => {
+    const sortedData = [...data].sort(
+    (a, b) => new Date(a.date || a.createdAt) - new Date(b.date || b.createdAt)
+  );
+
+  const chartData = sortedData.map(item => {
+    const rawDate = item.date || item.createdAt;
+
+    console.log("Raw date:", rawDate); // 🔍 Check what you're working with
+
+    const isValidDate = moment(rawDate, moment.ISO_8601, true).isValid();
+    const category = isValidDate ? moment(rawDate).format('Do MMM') : 'Unknown';
+
+    return {
+      category,
+      amount: item?.amount ?? 0,
+      category: item?.category ?? 'N/A',
+    };
+  });
+
+  return chartData;
+}

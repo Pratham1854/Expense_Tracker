@@ -95,7 +95,7 @@ const Home = () => {
           />
           <Recentincome
           transactions={dashboarddata?.last60DaysIncome?.transactions ||[]}
-           OnSeeMore={() => navigate("/expense")}
+           OnSeeMore={() => navigate("/income")}
           />
         </div>
       </div>
